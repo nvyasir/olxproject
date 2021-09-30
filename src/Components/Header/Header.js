@@ -35,35 +35,55 @@ function Header() {
             />
           </div>
           <div className="searchAction">
-            <Search color="#ffffff"></Search>
+            <Search color="#ff0000"></Search>
           </div>
         </div>
         <div className="language">
           <span> ENGLISH </span>
           <Arrow></Arrow>
         </div>
-        <div className="loginPage">
+        {
+          user ? 
+          <div>
+            <span>
+          {user ? `Welcome ${user.displayName} ` : 'Login'}
+          </span>
+          {user && <button type="button" class="btn btn-secondary" onClick={()=>
+          {
+            firebase.auth().signOut();
+            history.push('/')
+          }}>Logout</button>}
+          
+    </div>
+  
+          
+
+          :
+          <div className="loginPage">
           
           <span onClick={()=>
           {
             history.push('/login')
           }
-          }>{user ? `Welcome ${user.displayName}` : 'Login'}</span>
+          }>Login</span>
           <hr />
         </div>
-        <div>
-        {user && <span onClick={()=>
-        {
-          firebase.auth().signOut();
-          history.push('/')
-        }}>Logout</span>}
-  </div>
-        <div className="sellMenu">
+
+        }
+        
+        
+        <div className="sell
+        Menu">
           <SellButton></SellButton>
           <div className="sellMenuContent">
             <SellButtonPlus></SellButtonPlus>
+
             <span onClick={()=>{
+              user ?
               history.push('/create')
+              :
+              history.push('/login')
+
             }}>SELL</span>
           </div>
         </div>
